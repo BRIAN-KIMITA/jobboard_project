@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Search Jobs</h2>
+<form method="GET" action="{% url 'job_search' %}">
+    <input type="text" name="q" placeholder="Search by title">
+    <input type="text" name="location" placeholder="Location">
+    <button type="submit">Search</button>
+</form>
+
+<h2>Results</h2>
+<ul>
+    {% for job in jobs %}
+    <li>
+        <h3><a href="{% url 'job_details' job.id %}">{{ job.title }}</a></h3>
+        <p>{{ job.description }}</p>
+        <p>Location: {{ job.location }}</p>
+    </li>
+    {% empty %}
+    <li>No jobs found.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
